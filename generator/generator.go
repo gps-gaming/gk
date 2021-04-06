@@ -299,15 +299,15 @@ func (sg *ServiceInitGenerator) generateHttpTransport(name string, iface *parser
 					 JSON-encoded request from the HTTP request body. Primarily useful in a server.`,
 				m.Name),
 			parser.NamedTypeValue{},
-			fmt.Sprintf(`req = endpoints.%sRequest{}
-			err = json.NewDecoder(r.Body).Decode(&r)
+			fmt.Sprintf(`req := endpoints.%sRequest{}
+			err = json.NewDecoder(r.Body).Decode(&req)
 			return req,err`, m.Name),
 			[]parser.NamedTypeValue{
 				parser.NewNameType("_", "context.Context"),
 				parser.NewNameType("r", "*http.Request"),
 			},
 			[]parser.NamedTypeValue{
-				parser.NewNameType("req", "interface{}"),
+				parser.NewNameType("request", "interface{}"),
 				parser.NewNameType("err", "error"),
 			},
 		))
