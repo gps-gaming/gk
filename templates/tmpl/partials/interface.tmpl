@@ -1,0 +1,4 @@
+{{if ne .Comment ""}}{{.Comment}}{{end}}type {{.Name}} interface {
+{{range $i,$v := .Methods}}{{template "interface_func" $v}}
+{{end}}
+}

@@ -1,0 +1,4 @@
+{{if ne .Comment ""}}{{.Comment}}
+{{end}}func ({{.Struct.Name}} {{.Struct.Type}}) {{template "interface_func" .}}{ {{if not (eq .Body "")}}{{.Body}}{{else}}
+{{if gt (len .Results) 0}}return {{template "func_return" .Results}}
+{{end}}{{end}} }
