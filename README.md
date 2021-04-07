@@ -7,6 +7,11 @@ Go-kit generator is a cli application that generates boilerplate code for your g
 
 **Because I'm lazy**, and because it would make it easier for go-kit newcomers to start using it.
 
+## Required
+```bash
+go get -u github.com/go-kit/kit    
+go get -u google.golang.org/grpc
+```
 ## Installation
 ```bash
 go get github.com/gps-gaming/gk
