@@ -830,7 +830,7 @@ func (sg *GRPCInitGenerator) Generate(name string) error {
 		parser.NewNameType("oldcontext", "\"golang.org/x/net/context\""),
 		parser.NewNameType("", "\"context\""),
 		parser.NewNameType("", "\"errors\""),
-		parser.NewNameType("", fmt.Sprintf("\"%s\"", pbImport)),
+		parser.NewNameType("pb", fmt.Sprintf("\"%s\"", pbImport)),
 		parser.NewNameType("", fmt.Sprintf("\"%s\"", endpointsImport)),
 		parser.NewNameType("grpctransport", "\"github.com/go-kit/kit/transport/grpc\""),
 	}
@@ -862,8 +862,11 @@ func (sg *GRPCInitGenerator) Generate(name string) error {
 				v.Name,
 			),
 			parser.NamedTypeValue{},
-			fmt.Sprintf(`err = errors.New("'%s' Decoder is not impelement")
-			return req, err`, v.Name),
+			fmt.Sprintf(`err = errors.New("'%s' Decoder is not implement")
+			r := grpcReq.(*pb.%sRequest)
+			return endpoints.%sRequest{
+				// implement
+			}, err`, v.Name, v.Name, v.Name),
 			[]parser.NamedTypeValue{
 				parser.NewNameType("_", "context.Context"),
 				parser.NewNameType("grpcReq", "interface{}"),
@@ -883,8 +886,11 @@ func (sg *GRPCInitGenerator) Generate(name string) error {
 				v.Name,
 			),
 			parser.NamedTypeValue{},
-			fmt.Sprintf(`err = errors.New("'%s' Encoder is not impelement")
-			return res, err`, v.Name),
+			fmt.Sprintf(`err = errors.New("'%s' Encoder is not implement")
+			r := grpcReply.(endpoints.%sResponse)
+			return &pb.%sReply{
+				// implement
+			}, err`, v.Name, v.Name, v.Name),
 			[]parser.NamedTypeValue{
 				parser.NewNameType("_", "context.Context"),
 				parser.NewNameType("grpcReply", "interface{}"),

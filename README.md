@@ -11,6 +11,8 @@ Go-kit generator is a cli application that generates boilerplate code for your g
 ```bash
 go get -u github.com/go-kit/kit    
 go get -u google.golang.org/grpc
+go get -u github.com/golang/protobuf/protoc-gen-go
+go get -u google.golang.org/protobuf/runtime/protoimpl
 ```
 ## Installation
 ```bash
