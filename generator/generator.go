@@ -300,15 +300,15 @@ func (sg *ServiceInitGenerator) generateHttpTransport(name string, iface *parser
 				m.Name),
 			parser.NamedTypeValue{},
 			fmt.Sprintf(`req := endpoints.%sRequest{}
-			err = json.NewDecoder(r.Body).Decode(&req)
-			return req,err`, m.Name),
+			err := json.NewDecoder(r.Body).Decode(&req)
+			return req, err`, m.Name),
 			[]parser.NamedTypeValue{
 				parser.NewNameType("_", "context.Context"),
 				parser.NewNameType("r", "*http.Request"),
 			},
 			[]parser.NamedTypeValue{
-				parser.NewNameType("request", "interface{}"),
-				parser.NewNameType("err", "error"),
+				parser.NewNameType("", "interface{}"),
+				parser.NewNameType("", "error"),
 			},
 		))
 		handlerFile.Methods = append(handlerFile.Methods, parser.NewMethodWithComment(
@@ -317,12 +317,12 @@ func (sg *ServiceInitGenerator) generateHttpTransport(name string, iface *parser
 				the response as JSON to the response writer. Primarily useful in a server.`, m.Name),
 			parser.NamedTypeValue{},
 			` w.Header().Set("Content-Type", "application/json; charset=utf-8")
-			err = json.NewEncoder(w).Encode(response)
+			err = json.NewEncoder(w).Encode(res)
 			return err`,
 			[]parser.NamedTypeValue{
 				parser.NewNameType("_", "context.Context"),
 				parser.NewNameType("w", "http.ResponseWriter"),
-				parser.NewNameType("response", "interface{}"),
+				parser.NewNameType("res", "interface{}"),
 			},
 			[]parser.NamedTypeValue{
 				parser.NewNameType("err", "error"),
