@@ -836,8 +836,8 @@ func (sg *GRPCInitGenerator) Generate(name string) error {
 	}
 	grpcStruct := parser.NewStruct("grpcServer", []parser.NamedTypeValue{})
 	handler.Methods = append(handler.Methods, parser.NewMethodWithComment(
-		"MakeGRPCServer",
-		`MakeGRPCServer makes a set of endpoints available as a gRPC server.`,
+		"NewGRPCHandler",
+		`NewGRPCHandler makes a set of endpoints available as a gRPC server.`,
 		parser.NamedTypeValue{},
 		`req = &grpcServer{`,
 		[]parser.NamedTypeValue{
